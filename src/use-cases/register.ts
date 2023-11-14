@@ -1,5 +1,6 @@
 import { UsersRepository } from "@/repositories/users-repository"
 import { hash } from "bcryptjs"
+import { UserAlreadyExistsError } from "./errors/user-already-exists-error"
 
 interface RegisterUseCaseRequest {
     name: string
@@ -7,7 +8,7 @@ interface RegisterUseCaseRequest {
     password: string
 }
 
-//SOLID
+// SOLID
 
 // D - Dependecy Inversion Principle (ao inves de instanciar as dependencias eu vou recebe-las como parametro)
 
@@ -24,10 +25,10 @@ export class RegisterUseCase{
      const userWithSameEmail = await this.usersRepository.findByEmail(email)
  
      if(userWithSameEmail){
-       throw new Error('E-mail already exists.')
+       throw new UserAlreadyExistsError()
      }
  
-     //const prismaUsersRepository = new PrismaUsersRepository
+     // const prismaUsersRepository = new PrismaUsersRepository
  
      await this.usersRepository.create({
        name,
