@@ -1,7 +1,4 @@
-import { compare } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
-import { RegisterUseCase } from './register'
-import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { CreateGymUseCase } from './create-gym'
 

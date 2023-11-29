@@ -4,7 +4,14 @@ import dayjs from 'dayjs'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryCheckInsRepository implements CheckInsRepository {
+  
   public items: CheckIn[] = []
+
+  async findManyByUserId(userId: string, page: number){
+    return this.items.filter((item)=>
+        item.user_id === userId
+    ).slice((page - 1) * 20, page * 20)
+  }
 
   async findByUserIdOnDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date')
