@@ -7,9 +7,12 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply){
     })
     // se daqui para baixo o codigo continuar significa dizer que o refresh existe e que ele eh valido
 
+    const { role } = request.user
 
     const token = await reply.jwtSign(
-        {},
+        {
+          role
+        },
         {
           sign: {
             sub: request.user.sub,
@@ -17,7 +20,9 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply){
        })
 
      const refreshToken = await reply.jwtSign(
-      {},
+      {
+        role
+      },
       {
         sign: {
           sub: request.user.sub,
